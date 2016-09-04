@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
  * @since 04/09/16.
  */
 @Service
-@interface CustomService {
+public @interface CustomService {
 }

@@ -1,6 +1,8 @@
 package com.example.configuration;
 
+import com.example.service.CustomService;
 import net.bull.javamelody.*;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -26,6 +28,11 @@ public class JavaMelodyConfiguration implements ServletContextInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		servletContext.addListener(new SessionListener());
+	}
+
+	@Bean
+	public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
+		return new DefaultAdvisorAutoProxyCreator();
 	}
 
 	@Bean
@@ -70,7 +77,15 @@ public class JavaMelodyConfiguration implements ServletContextInitializer {
 	@Bean
 	public MonitoringSpringAdvisor springServiceMonitoringAdvisor() {
 		final MonitoringSpringAdvisor interceptor = new MonitoringSpringAdvisor();
-		interceptor.setPointcut(new AnnotationMatchingPointcut(Service.class, true));
+		interceptor.setPointcut(new AnnotationMatchingPointcut(Service.class));
+		//interceptor.setPointcut(new AnnotationMatchingPointcut(Service.class, true)); // Not working either
+		return interceptor;
+	}
+
+	@Bean
+	public MonitoringSpringAdvisor springCustomServiceMonitoringAdvisor() {
+		final MonitoringSpringAdvisor interceptor = new MonitoringSpringAdvisor();
+		interceptor.setPointcut(new AnnotationMatchingPointcut(CustomService.class));
 		return interceptor;
 	}
 
