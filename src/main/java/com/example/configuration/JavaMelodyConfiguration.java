@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import javax.servlet.ServletException;
  * @author speralta, evernat
  */
 @Configuration
-//replaced by methods below: @ImportResource("classpath:net/bull/javamelody/monitoring-spring.xml")
+@ImportResource("classpath:net/bull/javamelody/monitoring-spring.xml")
 @SuppressWarnings("javadoc")
 public class JavaMelodyConfiguration implements ServletContextInitializer {
 
